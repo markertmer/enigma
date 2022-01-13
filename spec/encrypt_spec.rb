@@ -13,9 +13,17 @@ describe Encrypt do
     expect(@encrypt.characters).to eq ["a","b","c","d","e","f","g","h","i","j","k","l","m","n","o","p","q","r","s","t","u","v","w","x","y","z"," "]
   end
 
-  it '3. accepts a message, key and date' do
+  it '3. has a message, key, and date' do
     expect(@encrypt.message).to eq "hello world"
     expect(@encrypt.key).to eq "02715"
     expect(@encrypt.date).to eq "040895"
+  end
+
+  it '4. uses todays date by default' do
+    @encrypt = Encrypt.new("hello world", "02715")
+
+  end
+
+  it '5. generates a random key by default' do
   end
 end

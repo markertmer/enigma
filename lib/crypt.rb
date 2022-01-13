@@ -3,7 +3,7 @@ class Crypt
 
   def initialize(key, date)
     @key = key
-    @date = date
+    date == nil ? : @date = todays_date : @date = date
     generate_chars
   end
 
