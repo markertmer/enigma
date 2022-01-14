@@ -33,6 +33,21 @@ describe Encrypt do
     encrypt = Encrypt.new("hello world")
     expect(encrypt.key.class).to be String
     expect(encrypt.key.length).to be 5
-
   end
+
+  it '6. creates A, B, C and D shift keys' do
+    expected = {A: 2, B: 27, C: 71, D: 15}
+    expect(@encrypt.shift_keys).to eq expected
+  end
+
+  it '6. creates A, B, C and D offsets' do
+    expected = {A: 1, B: 0, C: 2, D: 5}
+    expect(@encrypt.offsets).to eq expected
+  end
+
+  it '7. creates A, B, C and D shifts' do
+    expected = {A: 3, B: 27, C: 73, D: 20}
+    expect(@encrypt.shifts).to eq expected
+  end
+
 end
