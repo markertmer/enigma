@@ -51,17 +51,17 @@ describe Decrypt do
   end
 
   it '8. decrypts the message' do
-    expect(@decrypt.decrypt_message).to eq "hello world"
+    expect(@decrypt.decrypt_ciphertext).to eq "hello world"
   end
 
   it '9. ignores capitalization & special characters' do
-    decrypt = Decrypt.new("Keder, ohluw!", "02715", "040895")
-    expect(decrypt.decrypt_message).to eq "hello, world!"
+    decrypt = Decrypt.new("Keder, ohulw!", "02715", "040895")
+    expect(decrypt.decrypt_ciphertext).to eq "hello, world!"
     decrypt = Decrypt.new("K$e$d$e$r, o$h$u$l$w!", "02715", "040895")
-    expect(decrypt.decrypt_message).to eq "h$e$l$l$o, w$o$r$l$d!"
+    expect(decrypt.decrypt_ciphertext).to eq "h$e$l$l$o, w$o$r$l$d!"
   end
 
-  xit '9. outputs a hash' do
+  it '9. outputs a hash' do
     expected = {
       decryption: "hello world",
       key: "02715",

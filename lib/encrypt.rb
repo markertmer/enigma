@@ -5,7 +5,7 @@ class Encrypt < Crypt
     @message = message.downcase
     super(key, date)
   end
-
+  
   def output
     {
       encryption: encrypt_message,

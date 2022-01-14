@@ -8,13 +8,13 @@ class Decrypt < Crypt
 
   def output
     {
-      encryption: decrypt_message,
+      decryption: decrypt_ciphertext,
       key: @key,
       date: @date
     }
   end
 
-  def decrypt_message
+  def decrypt_ciphertext
     cipher_array = @ciphertext.split("")
     decrypted_array = []
     correction = 0
