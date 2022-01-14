@@ -30,5 +30,9 @@ describe Encrypt do
   end
 
   it '5. generates a random key by default' do
+    encrypt = Encrypt.new("hello world")
+    expect(encrypt.key.class).to be String
+    expect(encrypt.key.length).to be 5
+
   end
 end
