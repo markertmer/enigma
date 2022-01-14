@@ -10,9 +10,14 @@ describe Enigma do
       expect(@enigma).to be_instance_of Enigma
     end
 
-    # it '2. encrypts' do
-    #   expect
-    # end
+    it '2. encrypts & gives outputs' do
+      expected = {
+        encryption: "keder ohulw",
+        key: "02715",
+        date: "040895"
+      }
+      expect(@enigma.encrypt("hello world", "02715", "040895")).to eq expected
+    end
 
   #end
 end
