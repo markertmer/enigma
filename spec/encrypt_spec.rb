@@ -50,4 +50,23 @@ describe Encrypt do
     expect(@encrypt.shifts).to eq expected
   end
 
+  it '8. encrypts the message' do
+    expect(@encrypt.encrypt_message).to eq "keder ohulw"
+  end
+
+  it '9. ignores capitalization & special characters' do
+    encrypt = Encrypt.new("Hello, world!", "02715", "040895")
+    expect(encrypt.encrypt_message).to eq "keder, ohulw!"
+    encrypt = Encrypt.new("H$e$l$l$o, w$o$r$l$d!", "02715", "040895")
+    expect(encrypt.encrypt_message).to eq "k$e$d$e$r, o$h$u$l$w!"
+  end
+
+  it '9. outputs a hash' do
+    expected = {
+      encryption: "keder ohulw",
+      key: "02715",
+      date: "040895"
+    }
+    expect(@encrypt.output).to eq expected
+  end
 end
