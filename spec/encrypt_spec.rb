@@ -20,8 +20,13 @@ describe Encrypt do
   end
 
   it '4. uses todays date by default' do
-    @encrypt = Encrypt.new("hello world", "02715")
+    encrypt = Encrypt.new("hello world", "02715")
 
+    date_string = Date::today.strftime.delete("-")
+    expected = date_string[-2..-1] + date_string[-4..-3] + date_string[-6..-5]
+
+    expect(encrypt.date).to eq expected
+    # expect(encrypt.date).to eq "130122"
   end
 
   it '5. generates a random key by default' do
