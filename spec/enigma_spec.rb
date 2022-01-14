@@ -1,7 +1,7 @@
 require './helper.rb'
 
 describe Enigma do
-  describe 'Primitive Functions' do
+  #describe 'Primitive Functions' do
     before(:each) do
       @enigma = Enigma.new
     end
@@ -10,5 +10,9 @@ describe Enigma do
       expect(@enigma).to be_instance_of Enigma
     end
 
-  end
+    # it '2. encrypts' do
+    #   expect
+    # end
+
+  #end
 end
