@@ -4,11 +4,11 @@ class Enigma
   def initialize
   end
 
-  def encrypt(message, key, date)
-    Encrypt.new(message, key, date).encrypt
+  def encrypt(message, key = nil, date = nil)
+    Encrypt.new(message, key, date).output
   end
 
-  def decrypt(ciphertext, key, date)
-    Decrypt.new(ciphertext, key, date).decrypt
+  def decrypt(ciphertext, key = nil, date = nil)
+    Decrypt.new(ciphertext, key, date).output
   end
 end
