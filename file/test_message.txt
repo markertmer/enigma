@@ -1,4 +1,4 @@
 Well, hello there! My name is Mark and this message will soon be encrypted.
 I hope you enjoy running this program!
-Have a nice day, everybody.
+Have a nice day, and be safe out there.
 --Mark
