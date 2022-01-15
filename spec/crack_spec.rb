@@ -102,5 +102,4 @@ describe Crack do
     }
     expect(@crack.output).to eq expected
   end
-
 end

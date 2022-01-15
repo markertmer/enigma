@@ -6,7 +6,6 @@ class Crack < Crypt
   def initialize(ciphertext, date = nil)
     @ciphertext = ciphertext.downcase
     super(nil, date)
-    #align_last_four
   end
 
   def output
