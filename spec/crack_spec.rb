@@ -25,7 +25,30 @@ describe Crack do
     expected = date_string[-2..-1] + date_string[-4..-3] + date_string[-6..-5]
 
     expect(crack.date).to eq expected
-    expect(crack.date).to eq "140122"
+    # expect(crack.date).to eq "140122"
+  end
+
+  it '5. does not perform unneccessary functions' do
+    expect(@crack.key).to be nil
+    expect(@crack.shift_keys).to be nil
+    expect(@crack.offsets).to be nil
+    expect(@crack.shifts).to be nil
+  end
+
+  it '6. aligns last four digits to A-B-C-D order' do
+    @crack.align_last_four
+    expect(@crack.clue.join("")).to eq "end "
+    expect(@crack.last_four.join("")).to eq "ssih"
+  end
+
+  xit '7. finds the shifts' do
+    expected = {
+      A: 14,
+      B: 5,
+      C: 5,
+      D: 8
+    }
+    expect(@crack.shifts).to eq expected
   end
 
 end
