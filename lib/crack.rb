@@ -26,11 +26,11 @@ class Crack < Crypt
     end
   end
 
-  def find_candidates
+  def find_shift_key_candidates
     # find_shifts
     # generate_offsets
-    factors = (0..3).to_a
     @shift_key_candidates = {A: [], B: [], C: [], D: []}
+    factors = (0..3).to_a
 
     @shift_key_candidates.each do |key, canditates|
       factors.each do |number|
@@ -38,7 +38,17 @@ class Crack < Crypt
         @shift_key_candidates[key] << candidate unless candidate.length > 2
       end
     end
-    # until @shift_keys[:A].to_s[1] = @shift_keys[:B].to_s[0] && @shift_keys[:B].to_s[1] = @shift_keys[:C].to_s[0] && @shift_keys[:C].to_s[1] = @shift_keys[:D].to_s[0] do
-    # end
+  end
+
+  def find_shift_keys
+    @shift_keys = {A: "", B: "", C: "", D: ""}
+    until @shift_keys[:A].to_s[1] = @shift_keys[:B].to_s[0] && @shift_keys[:B].to_s[1] = @shift_keys[:C].to_s[0] && @shift_keys[:C].to_s[1] = @shift_keys[:D].to_s[0] do
+      @shift_key_candidates.each do |key, candidates|
+        candidates.each do |candidate|
+          @shift_key_candidates.each do |cey, kandidates|
+            next if cey == key
+            
+    end
+
   end
 end

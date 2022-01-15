@@ -57,7 +57,7 @@ describe Crack do
     @crack.align_last_four
     @crack.find_shifts
     @crack.generate_offsets
-    @crack.find_candidates
+    @crack.find_shift_key_candidates
     expected = {
       A: [ "08", "35", "62", "89" ],
       B: [ "02", "29", "56", "83" ],
@@ -67,16 +67,26 @@ describe Crack do
     expect(@crack.shift_key_candidates).to eq expected
   end
 
-  # xit '8. finds the shift keys' do
-  #   #@crack.align_last_four
-  #   @crack.find_shifts
-  #   @crack.find_shift_keys
-  #
-  #   @crack.shift_keys[:B].to_s[0]
-  #
-  #   expect(@crack.shift_keys[:A].to_s[1]).to eq. @crack.shift_keys[:B].to_s[0]
-  #   expect(@crack.shift_keys[:B].to_s[1]).to eq. @crack.shift_keys[:C].to_s[0]
-  #   expect(@crack.shift_keys[:C].to_s[1]).to eq. @crack.shift_keys[:D].to_s[0]
-  # end
+  it '9. finds the shift keys' do
+    @crack.align_last_four
+    @crack.find_shifts
+    @crack.generate_offsets
+    @crack.find_shift_key_candidates
+    @crack.find_shift_keys
+
+    expected = {A: "08", B: "83", C: "30", D: "04"}
+
+    expect(@crack.shift_keys).to eq expected
+  end
+
+  xit '10. finds the key' do
+    @crack.align_last_four
+    @crack.find_shifts
+    @crack.find_shift_key_candidates
+    @crack.find_shift_keys
+    @crack.find_key
+
+    expect(@crack.key).to eq "08304"
+  end
 
 end
