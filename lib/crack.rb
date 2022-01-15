@@ -41,8 +41,6 @@ class Crack < Crypt
   end
 
   def find_shift_keys
-    # @shift_keys = {A: "", B: "", C: "", D: ""}
-
     @shift_key_candidates[:A].each do |a_candidate|
       break if @shift_keys != nil
       b_possibles = @shift_key_candidates[:B].select do |b_candidate|
@@ -67,17 +65,18 @@ class Crack < Crypt
     end
   end
 
+  def find_key
+    @key = @shift_keys[:A][0] + @shift_keys[:B] + @shift_keys[:D]
+  end
 
-    # until @shift_keys[:A][1] = @shift_keys[:B][0] && @shift_keys[:B][1] = @shift_keys[:C][0] && @shift_keys[:C][1] = @shift_keys[:D][0] do
-    #   @shift_key_candidates.each do |a_key, a_candidates|
-    #     a_candidates.each do |a_candidate|
-    #       @shift_key_candidates.each do |b_key, b_candidates|
-    #         next if b_key == a_key
-    #         kandidates.each do |kandidate|
-    #           if kandidate[0] == candidate[1]
-    #             @shift_keys[key] = candidate
-    #             @shift_keys[cey] = kandidate
-
-    # end
+  def decrypt
+    align_last_four
+    find_shifts
+    generate_offsets
+    find_shift_key_candidates
+    find_shift_keys
+    find_key
+    transform_text("decrypt")
+  end
 
 end

@@ -79,14 +79,19 @@ describe Crack do
     expect(@crack.shift_keys).to eq expected
   end
 
-  xit '10. finds the key' do
+  it '10. finds the key' do
     @crack.align_last_four
     @crack.find_shifts
+    @crack.generate_offsets
     @crack.find_shift_key_candidates
     @crack.find_shift_keys
     @crack.find_key
 
     expect(@crack.key).to eq "08304"
+  end
+
+  it '11. decrypts the ciphertext' do
+    expect(@crack.decrypt).to eq "hello world end"
   end
 
 end
