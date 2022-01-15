@@ -94,4 +94,13 @@ describe Crack do
     expect(@crack.decrypt).to eq "hello world end"
   end
 
+  it '12. outputs a hash' do
+    expected = {
+      decryption: "hello world end",
+      key: "08304",
+      date: "291018"
+    }
+    expect(@crack.output).to eq expected
+  end
+
 end

@@ -9,6 +9,24 @@ class Crack < Crypt
     #align_last_four
   end
 
+  def output
+    {
+      decryption: decrypt,
+      key: @key,
+      date: @date
+    }
+  end
+
+  def decrypt
+    align_last_four
+    find_shifts
+    generate_offsets
+    find_shift_key_candidates
+    find_shift_keys
+    find_key
+    transform_text("decrypt")
+  end
+
   def align_last_four
     @last_four = @ciphertext[-4..-1].split("")
     length = @ciphertext.length
@@ -27,8 +45,6 @@ class Crack < Crypt
   end
 
   def find_shift_key_candidates
-    # find_shifts
-    # generate_offsets
     @shift_key_candidates = {A: [], B: [], C: [], D: []}
     factors = (0..3).to_a
 
@@ -67,16 +83,6 @@ class Crack < Crypt
 
   def find_key
     @key = @shift_keys[:A][0] + @shift_keys[:B] + @shift_keys[:D]
-  end
-
-  def decrypt
-    align_last_four
-    find_shifts
-    generate_offsets
-    find_shift_key_candidates
-    find_shift_keys
-    find_key
-    transform_text("decrypt")
   end
 
 end
