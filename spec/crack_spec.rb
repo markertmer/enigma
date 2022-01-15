@@ -37,8 +37,8 @@ describe Crack do
 
   it '6. aligns last four digits to A-B-C-D order' do
     @crack.align_last_four
-    expect(@crack.clue.join("")).to eq "end "
     expect(@crack.last_four.join("")).to eq "ssih"
+    expect(@crack.clue.join("")).to eq "end "
   end
 
   it '7. finds the shifts' do
@@ -53,8 +53,30 @@ describe Crack do
     expect(@crack.shifts).to eq expected
   end
 
-  it '8. finds the key' do
-
+  it '8. finds shift key candidates' do
+    @crack.align_last_four
+    @crack.find_shifts
+    @crack.generate_offsets
+    @crack.find_candidates
+    expected = {
+      A: [ "08", "35", "62", "89" ],
+      B: [ "02", "29", "56", "83" ],
+      C: [ "03", "30", "57", "84" ],
+      D: [ "04", "31", "58", "85" ]
+    }
+    expect(@crack.shift_key_candidates).to eq expected
   end
+
+  # xit '8. finds the shift keys' do
+  #   #@crack.align_last_four
+  #   @crack.find_shifts
+  #   @crack.find_shift_keys
+  #
+  #   @crack.shift_keys[:B].to_s[0]
+  #
+  #   expect(@crack.shift_keys[:A].to_s[1]).to eq. @crack.shift_keys[:B].to_s[0]
+  #   expect(@crack.shift_keys[:B].to_s[1]).to eq. @crack.shift_keys[:C].to_s[0]
+  #   expect(@crack.shift_keys[:C].to_s[1]).to eq. @crack.shift_keys[:D].to_s[0]
+  # end
 
 end
