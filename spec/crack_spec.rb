@@ -41,7 +41,9 @@ describe Crack do
     expect(@crack.last_four.join("")).to eq "ssih"
   end
 
-  xit '7. finds the shifts' do
+  it '7. finds the shifts' do
+    @crack.align_last_four
+    @crack.find_shifts
     expected = {
       A: 14,
       B: 5,
@@ -49,6 +51,10 @@ describe Crack do
       D: 8
     }
     expect(@crack.shifts).to eq expected
+  end
+
+  it '8. finds the key' do
+
   end
 
 end
