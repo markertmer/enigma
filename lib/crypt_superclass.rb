@@ -67,5 +67,4 @@ class Crypt
       end
     end
   end
-
 end
