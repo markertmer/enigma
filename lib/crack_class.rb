@@ -1,7 +1,7 @@
 require './helper.rb'
 
 class Crack < Crypt
-  attr_reader :ciphertext, :clue, :last_four, :shift_key_candidates
+  attr_reader :ciphertext, :clue, :last_four, :shift_key_candidates, :input_array
 
   def initialize(ciphertext, date = nil)
     @ciphertext = ciphertext.downcase
@@ -25,7 +25,7 @@ class Crack < Crypt
     find_key
     @input_array = @ciphertext.split("")
     @shifts.transform_values! { |shift| shift * -1 }
-    transform_text#("decrypt")
+    transform_text
   end
 
   def align_last_four

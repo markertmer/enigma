@@ -1,5 +1,5 @@
 class Encrypt < Crypt
-  attr_reader :message
+  attr_reader :message, :input_array
 
   def initialize(message, key = nil, date = nil)
     @message = message.downcase
@@ -16,7 +16,7 @@ class Encrypt < Crypt
 
   def encrypt_message
     @input_array = @message.split("")
-    transform_text#("encrypt")
+    transform_text
   end
 
 end
