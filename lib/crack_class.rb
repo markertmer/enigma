@@ -1,7 +1,4 @@
-require './helper.rb'
-
 class Crack < Crypt
-  attr_reader :ciphertext, :clue, :last_four, :shift_key_candidates, :input_array
 
   def initialize(ciphertext, date = nil)
     @ciphertext = ciphertext.downcase
@@ -28,7 +25,6 @@ class Crack < Crypt
     @shifts.transform_values! { |shift| shift * -1 }
     transform_text
     @output_array.join
-
   end
 
   def align_last_four
@@ -89,5 +85,4 @@ class Crack < Crypt
   def find_key
     @key = @shift_keys[:A][0] + @shift_keys[:B] + @shift_keys[:D]
   end
-
 end

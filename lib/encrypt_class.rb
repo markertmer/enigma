@@ -1,5 +1,4 @@
 class Encrypt < Crypt
-  attr_reader :message, :input_array
 
   def initialize(message, key = nil, date = nil)
     @message = message.downcase
@@ -20,5 +19,4 @@ class Encrypt < Crypt
     transform_text
     @output_array.join
   end
-
 end

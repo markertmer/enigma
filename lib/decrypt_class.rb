@@ -1,5 +1,4 @@
 class Decrypt < Crypt
-  attr_reader :ciphertext, :input_array
 
   def initialize(ciphertext, key = nil, date = nil)
     @ciphertext = ciphertext.downcase

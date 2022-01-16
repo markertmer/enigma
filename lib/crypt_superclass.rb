@@ -1,5 +1,17 @@
 class Crypt
-  attr_reader :name, :characters, :key, :date, :shift_keys, :offsets, :shifts
+  attr_reader :characters,
+  :ciphertext,
+  :clue,
+  :date,
+  :input_array,
+  :key,
+  :last_four,
+  :message,
+  :offsets,
+  :output_array,
+  :shifts,
+  :shift_keys,
+  :shift_key_candidates
 
   def initialize(key, date)
     generate_characters
