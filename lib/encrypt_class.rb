@@ -15,7 +15,8 @@ class Encrypt < Crypt
   end
 
   def encrypt_message
-    transform_text("encrypt")
+    @input_array = @message.split("")
+    transform_text#("encrypt")
   end
 
 end

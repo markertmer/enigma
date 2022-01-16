@@ -23,7 +23,9 @@ class Crack < Crypt
     find_shift_key_candidates
     find_shift_keys
     find_key
-    transform_text("decrypt")
+    @input_array = @ciphertext.split("")
+    @shifts.transform_values! { |shift| shift * -1 }
+    transform_text#("decrypt")
   end
 
   def align_last_four

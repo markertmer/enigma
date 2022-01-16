@@ -15,6 +15,8 @@ class Decrypt < Crypt
   end
 
   def decrypt_ciphertext
-    transform_text("decrypt")
+    @input_array = @ciphertext.split("")
+    @shifts.transform_values! { |shift| shift * -1 }
+    transform_text#("decrypt")
   end
 end

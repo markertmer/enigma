@@ -54,16 +54,16 @@ class Crypt
     }
   end
 
-  def transform_text(mode)
-    if mode == "encrypt"
-      input_array = @message.split("")
-    elsif mode == "decrypt"
-      input_array = @ciphertext.split("")
-      @shifts.transform_values! { |shift| shift * -1 }
-    end
+  def transform_text#(mode)
+    # if mode == "encrypt"
+    #   input_array = @message.split("")
+    # elsif mode == "decrypt"
+    #   input_array = @ciphertext.split("")
+    #   @shifts.transform_values! { |shift| shift * -1 }
+    # end
     output_array = []
     correction = 0
-    input_array.each_with_index do |char, index|
+    @input_array.each_with_index do |char, index|
       if !@characters.include?(char)
         output_array << char
         correction += 1
