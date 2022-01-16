@@ -1,5 +1,3 @@
-# require 'pry'
-# require 'rspec'
 require 'date'
 require './lib/crypt_superclass.rb'
 require './lib/encrypt_class.rb'
