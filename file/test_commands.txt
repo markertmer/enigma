@@ -1,64 +1,65 @@
-ENCRYPT
-works as planned:
+RUNNERS
+ruby encrypt.rb
+ruby decrypt.rb
+ruby crack.rb
+
+TEST FILES
+home_test_message.txt
+./file/test_message.txt
+home_test_encryption.txt
+./file/test_encryption.txt
+home_test_decipheration.txt
+./file/test_decipheration.txt
+home_test_crack.txt
+./file/test_crack.txt
+
+HAPPY PATHS
+home>home>home
+ruby encrypt.rb home_test_message.txt home_test_encryption.txt
+ruby decrypt.rb home_test_encryption.txt home_test_decipheration.txt 97251 160122
+ruby crack.rb home_test_encryption.txt home_test_crack.txt 160122
+
+file>file>file
 ruby encrypt.rb ./file/test_message.txt ./file/test_encryption.txt
+ruby decrypt.rb ./file/test_encryption.txt ./file/test_decipheration.txt 96435 160122
+ruby crack.rb ./file/test_encryption.txt ./file/test_crack.txt 160122
 
-works from home directory (must create source file):
-ruby encrypt.rb home_test_message.txt test_encryption.txt
+home>file>home
+ruby encrypt.rb home_test_message.txt ./file/test_encryption.txt
+ruby decrypt.rb ./file/test_encryption.txt home_test_decipheration.txt 27138 160122
+ruby crack.rb ./file/test_encryption.txt home_test_crack.txt 160122
 
-source file not valid:
+file>home>file
+ruby encrypt.rb ./file/test_message.txt home_test_encryption.txt
+ruby decrypt.rb home_test_encryption.txt ./file/test_decipheration.txt 65788 160122
+ruby crack.rb home_test_encryption.txt ./file/test_crack.txt 160122
+
+INVALID SOURCE:
 ruby encrypt.rb ./file/no_test_message_here.txt ./file/test_encryption.txt
+ruby decrypt.rb ./file/no_test_encryption_here.txt ./file/test_encryption.txt
+ruby crack.rb ./file/no_test_encryption_here.txt ./file/test_encryption.txt 160122
 
-outuput directory does not exist:
+INVALID OUTPUT DIRECTORY:
 ruby encrypt.rb ./file/test_message.txt ./not_a_file/test_encryption.txt
+ruby decrypt.rb ./file/test_encryption.txt ./not_a_file/test_decipheration.txt
+ruby crack.rb ./file/test_encryption.txt ./not_a_file/test_crack.txt 160122
 
-wrong number of arguments:
+WRONG NUMBER OF ARGUMENTS:
 ruby encrypt.rb ./file/test_message.txt
 ruby encrypt.rb ./file/test_message.txt asdf 1234
-
-DECRYPT
-works as planned:
-ruby decrypt.rb ./file/test_encryption.txt ./file/test_decipheration.txt 86813 140122
-
-works from home directory (must create source file):
-ruby decrypt.rb home_test_encryption.txt home_test_decipheration.txt 86813 140122
-
-source file not valid:
-ruby decrypt.rb ./file/no_test_encryption_here.txt ./file/test_encryption.txt
-
-outuput directory does not exist:
-ruby decrypt.rb ./file/test_encryption.txt ./not_a_file/test_decipheration.txt
-
-invalid key:
-ruby decrypt.rb ./file/test_encryption.txt ./file/test_decipheration.txt 868133 140122
-ruby decrypt.rb ./file/test_encryption.txt ./file/test_decipheration.txt ABC13 140122
-
-invalid date:
-ruby decrypt.rb ./file/test_encryption.txt ./file/test_decipheration.txt 86813 14012
-ruby decrypt.rb ./file/test_encryption.txt ./file/test_decipheration.txt 86813 14o122
-
-wrong number of arguments:
 ruby decrypt.rb ./file/test_encryption.txt ./file/test_decipheration.txt
 ruby decrypt.rb ./file/test_encryption.txt ./file/test_decipheration.txt 86813
 ruby decrypt.rb ./file/test_encryption.txt ./file/test_decipheration.txt 86813 140122 140122
+ruby crack.rb ./file/test_encryption.txt ./file/test_crack.txt
+ruby crack.rb ./file/test_encryption.txt ./file/test_crack.txt 160122 160122
 
-CRACK
-works as planned:
-ruby crack.rb ./file/test_encryption.txt ./file/test_crack.txt 160122
+INVALID KEY:
+ruby decrypt.rb ./file/test_encryption.txt ./file/test_decipheration.txt 868133 140122
+ruby decrypt.rb ./file/test_encryption.txt ./file/test_decipheration.txt ABC13 140122
 
-works from home directory (must create source file):
-ruby crack.rb home_test_encryption.txt home_test_crack.txt 160122
-
-source file not valid:
-ruby crack.rb ./file/no_test_encryption_here.txt ./file/test_encryption.txt 160122
-
-outuput directory does not exist:
-ruby crack.rb ./file/test_encryption.txt ./not_a_file/test_crack.txt 160122
-
-invalid date:
+INVALID DATE:
+ruby decrypt.rb ./file/test_encryption.txt ./file/test_decipheration.txt 86813 14012
+ruby decrypt.rb ./file/test_encryption.txt ./file/test_decipheration.txt 86813 14o122
 ruby crack.rb ./file/test_encryption.txt ./file/test_crack.txt 16012
 ruby crack.rb ./file/test_encryption.txt ./file/test_crack.txt 1601222
 ruby crack.rb ./file/test_encryption.txt ./file/test_crack.txt 160l22
-
-wrong number of arguments:
-ruby crack.rb ./file/test_encryption.txt ./file/test_crack.txt
-ruby crack.rb ./file/test_encryption.txt ./file/test_crack.txt 160122 160122
