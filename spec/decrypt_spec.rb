@@ -61,7 +61,7 @@ describe Decrypt do
     expect(decrypt.decrypt_ciphertext).to eq "h$e$l$l$o, w$o$r$l$d!"
   end
 
-  it '9. outputs a hash' do
+  it '10. outputs a hash' do
     expected = {
       decryption: "hello world",
       key: "02715",

@@ -61,7 +61,7 @@ describe Encrypt do
     expect(encrypt.encrypt_message).to eq "k$e$d$e$r, o$h$u$l$w!"
   end
 
-  it '9. outputs a hash' do
+  it '10. outputs a hash' do
     expected = {
       encryption: "keder ohulw",
       key: "02715",

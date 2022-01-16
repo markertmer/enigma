@@ -2,12 +2,12 @@ class Crypt
   attr_reader :name, :characters, :key, :date, :shift_keys, :offsets, :shifts
 
   def initialize(key, date)
-    assign_date(date)
-    assign_key(key)
     generate_characters
-    generate_shift_keys
-    generate_offsets
-    generate_shifts
+    assign_date(date)
+    assign_key(key) unless self.class == Crack
+    generate_shift_keys unless self.class == Crack
+    generate_offsets unless self.class == Crack
+    generate_shifts unless self.class == Crack
   end
 
   def assign_date(date)
