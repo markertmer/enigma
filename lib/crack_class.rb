@@ -45,7 +45,7 @@ class Crack < Crypt
 
   def find_shift_key_candidates
     @shift_key_candidates = {A: [], B: [], C: [], D: []}
-    factors = (0..3).to_a
+    factors = (0..4).to_a
 
     @shift_key_candidates.each do |key, canditates|
       factors.each do |number|
