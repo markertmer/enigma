@@ -58,28 +58,15 @@ class Crack < Crypt
   end
 
   def find_shift_keys
-    @shift_key_candidates[:A].each do |a_candidate|
-      break if @shift_keys != nil
-      b_possibles = @shift_key_candidates[:B].select do |b_candidate|
-        b_candidate[0] == a_candidate[1]
-      end
-      next if b_possibles == []
-      b_possibles.each do |b_possible|
-        break if @shift_keys != nil
-        c_possibles = @shift_key_candidates[:C].select do |c_candidate|
-          c_candidate[0] == b_possible[1]
-        end
-        next if c_possibles == []
-        c_possibles.each do |c_possible|
-          break if @shift_keys != nil
-          d_winner = @shift_key_candidates[:D].find do |d_candidate|
-            d_candidate[0] == c_possible[1]
-          end
-          next if d_winner == nil
-          @shift_keys = {A: a_candidate, B: b_possible, C: c_possible, D: d_winner}
-        end
-      end
+    keys = ["420", "69", "13", "666"]
+    until keys[0][1] == keys[1][0] && keys[1][1] == keys[2][0] && keys[2][1] == keys[3][0]
+      keys = []
+      keys << @shift_key_candidates[:A].sample
+      keys << @shift_key_candidates[:B].sample
+      keys << @shift_key_candidates[:C].sample
+      keys << @shift_key_candidates[:D].sample
     end
+    @shift_keys = {A: keys[0], B: keys[1], C: keys[2], D: keys[3]}
   end
 
   def find_key
