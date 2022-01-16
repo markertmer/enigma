@@ -1,4 +1,4 @@
-require './helper.rb'
+require './spec/spec_helper.rb'
 
 describe Enigma do
   before(:each) do
@@ -35,5 +35,12 @@ describe Enigma do
   it '5. encrypts and decrypts using a random key' do
     encrypted = @enigma.encrypt("hello world")
     expect(@enigma.decrypt(encrypted[:encryption], encrypted[:key])[:decryption]).to eq "hello world"
+  end
+
+  it '6. cracks a message ending in _end using just the date' do
+    encrypted = @enigma.encrypt("hello, world! end")
+    expected = @enigma.decrypt(encrypted[:encryption], encrypted[:key], encrypted[:date])[:decryption]
+    expect(@enigma.crack(encrypted[:encryption], encrypted[:date])[:decryption]).to eq expected
+    expect(@enigma.crack(encrypted[:encryption], encrypted[:date])[:key]).to eq encrypted[:key]
   end
 end

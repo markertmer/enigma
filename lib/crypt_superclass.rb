@@ -1,5 +1,17 @@
 class Crypt
-  attr_reader :name, :characters, :key, :date, :shift_keys, :offsets, :shifts
+  attr_reader :characters,
+  :ciphertext,
+  :clue,
+  :date,
+  :input_array,
+  :key,
+  :last_four,
+  :message,
+  :offsets,
+  :output_array,
+  :shifts,
+  :shift_keys,
+  :shift_key_candidates
 
   def initialize(key, date)
     generate_characters
@@ -54,34 +66,17 @@ class Crypt
     }
   end
 
-  def transform_text(mode)
-    if mode == "encrypt"
-      input_array = @message.split("")
-    elsif mode == "decrypt"
-      input_array = @ciphertext.split("")
-      @shifts.transform_values! { |shift| shift * -1 }
-    end
-    output_array = []
+  def transform_text
     correction = 0
-    input_array.each_with_index do |char, index|
+    @input_array.each_with_index do |char, index|
       if !@characters.include?(char)
-        output_array << char
+        @output_array << char
         correction += 1
-      elsif (index - correction) % 4 == 0
+      else
         index_of_char = @characters.index(char)
-        output_array << @characters.rotate(@shifts[:A])[index_of_char]
-      elsif (index - correction) % 4 == 1
-        index_of_char = @characters.index(char)
-        output_array << @characters.rotate(@shifts[:B])[index_of_char]
-      elsif (index - correction) % 4 == 2
-        index_of_char = @characters.index(char)
-        output_array << @characters.rotate(@shifts[:C])[index_of_char]
-      elsif (index - correction) % 4 == 3
-        index_of_char = @characters.index(char)
-        output_array << @characters.rotate(@shifts[:D])[index_of_char]
+        key = @shifts.keys[(index - correction) % 4]
+        @output_array << @characters.rotate(@shifts[key])[index_of_char]
       end
     end
-    output_array.join
   end
-
 end

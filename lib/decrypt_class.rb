@@ -1,5 +1,4 @@
 class Decrypt < Crypt
-  attr_reader :ciphertext
 
   def initialize(ciphertext, key = nil, date = nil)
     @ciphertext = ciphertext.downcase
@@ -15,6 +14,10 @@ class Decrypt < Crypt
   end
 
   def decrypt_ciphertext
-    transform_text("decrypt")
+    @input_array = @ciphertext.split("")
+    @output_array = []
+    @shifts.transform_values! { |shift| shift * -1 }
+    transform_text
+    @output_array.join
   end
 end
