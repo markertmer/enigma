@@ -28,7 +28,8 @@ class Crack < Crypt
 
   def align_last_four
     @last_four = @ciphertext[-4..-1].split("")
-    length = @ciphertext.length
+    special_chars = @ciphertext.split("").count { |char| !@characters.include?(char) }
+    length = @ciphertext.length - special_chars
     @last_four.rotate!(4 - length % 4)
     @clue= " end".split("").rotate!(4 - length %4)
   end
