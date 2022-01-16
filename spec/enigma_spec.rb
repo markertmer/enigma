@@ -1,4 +1,4 @@
-require './helper.rb'
+require './spec/spec_helper.rb'
 
 describe Enigma do
   before(:each) do
