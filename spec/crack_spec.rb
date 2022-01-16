@@ -102,4 +102,18 @@ describe Crack do
     }
     expect(@crack.output).to eq expected
   end
+
+  it '13. cracks messages with special characters' do
+    encrypt = Encrypt.new("hello, there, world; how are you doing?? end", "02715").output
+
+    date_string = Date::today.strftime.delete("-")
+    date = date_string[-2..-1] + date_string[-4..-3] + date_string[-6..-5]
+
+    expected = {
+      decryption: "hello, there, world; how are you doing?? end",
+      key: "02715",
+      date: date
+    }
+    expect(Crack.new(encrypt[:encryption]).output).to eq expected
+  end
 end

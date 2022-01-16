@@ -28,7 +28,8 @@ class Crack < Crypt
 
   def align_last_four
     @last_four = @ciphertext[-4..-1].split("")
-    length = @ciphertext.length
+    special_chars = @ciphertext.split("").count { |char| !@characters.include?(char) }
+    length = @ciphertext.length - special_chars
     @last_four.rotate!(4 - length % 4)
     @clue= " end".split("").rotate!(4 - length %4)
   end
@@ -45,7 +46,7 @@ class Crack < Crypt
 
   def find_shift_key_candidates
     @shift_key_candidates = {A: [], B: [], C: [], D: []}
-    factors = (0..3).to_a
+    factors = (0..4).to_a
 
     @shift_key_candidates.each do |key, canditates|
       factors.each do |number|
