@@ -55,31 +55,17 @@ class Crypt
   end
 
   def transform_text
-    output_array = []
     correction = 0
-    keys = [:A, :B, :C, :D]
     @input_array.each_with_index do |char, index|
       if !@characters.include?(char)
-        output_array << char
+        @output_array << char
         correction += 1
       else
         index_of_char = @characters.index(char)
-        output_array << @characters.rotate(@shifts[keys[(index - correction) % 4]])[index_of_char]
-      # elsif (index - correction) % 4 == 0
-      #   index_of_char = @characters.index(char)
-      #   output_array << @characters.rotate(@shifts[:A])[index_of_char]
-      # elsif (index - correction) % 4 == 1
-      #   index_of_char = @characters.index(char)
-      #   output_array << @characters.rotate(@shifts[:B])[index_of_char]
-      # elsif (index - correction) % 4 == 2
-      #   index_of_char = @characters.index(char)
-      #   output_array << @characters.rotate(@shifts[:C])[index_of_char]
-      # elsif (index - correction) % 4 == 3
-      #   index_of_char = @characters.index(char)
-      #   output_array << @characters.rotate(@shifts[:D])[index_of_char]
+        key = @shifts.keys[(index - correction) % 4]
+        @output_array << @characters.rotate(@shifts[key])[index_of_char]
       end
     end
-    output_array.join
   end
 
 end

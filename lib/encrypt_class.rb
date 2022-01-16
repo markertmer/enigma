@@ -16,7 +16,9 @@ class Encrypt < Crypt
 
   def encrypt_message
     @input_array = @message.split("")
+    @output_array = []
     transform_text
+    @output_array.join
   end
 
 end

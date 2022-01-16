@@ -24,8 +24,11 @@ class Crack < Crypt
     find_shift_keys
     find_key
     @input_array = @ciphertext.split("")
+    @output_array = []
     @shifts.transform_values! { |shift| shift * -1 }
     transform_text
+    @output_array.join
+
   end
 
   def align_last_four
