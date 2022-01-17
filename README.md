@@ -1,6 +1,6 @@
 #Enigma
-This was built based on the requirements of the [Enigma](https://backend.turing.edu/module1/projects/enigma/index) project from [Turing School of Software and Design](https://turing.edu/).
-It was completed by Mark Ertmer (2111 BE) in January 2022 as the Final Project for Mod 1.
+This encryption program was built based on the requirements of the [Enigma](https://backend.turing.edu/module1/projects/enigma/index) project from [Turing School of Software and Design](https://turing.edu/).
+It was submitted by Mark Ertmer (2111 BE) in January 2022 as the Final Project for Mod 1.
 
 ###Table of Contents
 * [About](#about-this-application)
@@ -13,7 +13,7 @@ It was completed by Mark Ertmer (2111 BE) in January 2022 as the Final Project f
 * [Exploration: Finding Equivalent Keys](#exploration)
 
 ##About this Application
-This application uses an algorithm to encrypt and decrypt message text with the use of a 5-digit, randomly-generated `key` and the 6-digit numeric `date` of encryption in DDMMYY format. The application is run from the command line, where the user can designate an input file to encrypt/decrypt and an output file to write the resulting encryption/decryption.
+This application uses an algorithm to encrypt and decrypt a text-based message with the use of a 5-digit, randomly-generated `key` and the 6-digit numeric `date` of encryption in DDMMYY format. The application is run from the command line, where the user can designate an input file to encrypt/decrypt and an output file to write the resulting encryption/decryption.
 
 ##Getting Started
 1. Fork and Clone this repo to your machine.
@@ -28,19 +28,19 @@ ruby encrypt.rb <source file> <output file>
 ####EXAMPLE:
 1. You will see there is a `test_message.txt` in the `file` directory. It contains the text:
    ```
-   Hello, this is a test! Have a super day. end
+    Hello, this is a test! Have a super day. end
 ```
 2. Run this command from your terminal:
    ```
    ruby encrypt.rb ./file/test_message.txt ./file/test_encryption.txt
 ```
-3. The `test_encryption.txt` is created in the `file` directory with encrypted text that might look something like this:
+3. The `test_encryption.txt` output is created in the `file` directory with encrypted text that might look something like this:
    ```
-
+   inmiuu,hqqo xryhyizmpb!fpydkhyiybmnxhajd.hbwj
 ```
-4. A confirmation message prints to the terminal, giving the output filepath, along with the `key` and `date`. These two pieces of information will be needed to decrypt the message.
+4. A confirmation message prints to the terminal, giving the output filepath, along with the `key` and `date`. These two pieces of information will be needed to decrypt the message later.
    ```
-
+   Created ./file/test_encryption.txt with the key 32547 and date 170122
 ```
 
 ###Decrypting Messages
@@ -52,13 +52,17 @@ As with `encrypt`, the `decrypt` command takes a source and output file, but als
 ####EXAMPLE:
 1. To decrypt the message that was encrypted above, enter this command:
    ```
-   ruby decrypt.rb ./file/test_encryption.txt ./file/test_decipheration.txt 96435 170122
+   ruby decrypt.rb ./file/test_encryption.txt ./file/test_decipheration.txt 32547 170122
 ```
    Notice that the `key` and `date` were taken from the previous example.
 2. `test_decipheration.txt` is created in `file`, and contains the decoded text:
    ```
-```
-3. A confirmation prints to the terminal, giving the output filepath, along with the `key` and `date` used.
+    hello, this is a test! have a super day. end
+   ```
+3. A confirmation prints to the terminal, giving the output filepath, along with the `key` and `date` used:
+   ```
+   Created ./file/test_decipheration.txt with the key 32547 and date 170122
+   ```
 
 ###Cracking Encrypted Messages
 It is possible that an intercepted message could be decoded without a key, provided the following assumptions are correct:
@@ -66,14 +70,19 @@ It is possible that an intercepted message could be decoded without a key, provi
 * The message ends in " end".
 
 ####EXAMPLE:
-1. To crack the encrypted message used above, enter this command:
-   ```ruby crack.rb ./file/test_encryption.txt ./file/test_crack.txt 170122
+1. To crack the encrypted message from above, enter this command:
+   ```
+   ruby crack.rb ./file/test_encryption.txt ./file/test_crack.txt 170122
    ```
    You'll need to include the source and output files, along with the six-digit `date` believed to be used for encryption.
 2. `test_crack.txt` is created in `file`, and contains the decoded text:
    ```
-```
+    hello, this is a test! have a super day. end
+   ```
 3. A confirmation prints to the terminal, giving the output filepath, along with the `date` used and cracked `key`.
+   ```
+   Created ./file/test_crack.txt with the cracked key 32547 and date 170122
+   ```
 
 ##Encryption Algorithm
 1. The algorithm makes use of a 27-character set which includes all the lowercase letters in the English alphabet plus a space. The program stores this information as an array to allow easy access to each character and its index:
@@ -112,11 +121,18 @@ To avoid crashing, the program includes contingencies for the following improper
 
 If any of these conditions apply, the program ends after outputting a message to help the user enter a valid command:
 ```
+INVALID INPUT
+- Make sure your source file is valid.
+- Make sure to use a valid filepath for your output.
+- The key must be exactly 5 digits, numbers only.
+- Enter a date using 'DDMMYY' formatting. 6 digits, numbers only.
+COMMAND STRUCTURE:
+$ ruby decrypt.rb <source filepath> <output filepath> <key> <date>
 ```
 
 ##Exploration
 ###Finding Equivalent Keys
-While testing my `crack` methods, there were two isolated times when a reliable method failed. The reason was that the `key` found did not match the key used for the original encryption, although it was able to accurately decrypt the message.
+While testing my `crack` methods, there were several isolated times when a reliable method failed. The reason was that the `key` found did not match the key used for the original encryption, although it was able to accurately decrypt the message.
 
 I realized that it is possible for more than one key to result in the same effective `A`, `B`, `C`, and `D` shifts, because numbers larger than 27 loop back around. So in other words, a shift of 30 is equivalent to a shift of 3 (because 30 = 27 + 3), or a shift of 71 is equivalent to a shift of 17 (because 71 = 27 + 27 + 17).  
 
@@ -149,12 +165,12 @@ end
   (Each of these keys results in an `A`, `B`, `C`, and `D` shift of 9)
 
 ###IMPLICATIONS FOR PROBABILITY
-On the face, the chance of guessing a correct 5-digit key appears to be one in 100,000 (all the numbers from 00000 to 99999). However, the chances are somewhat better than that:
-* The key 00000 results in no shifts, and therefore no encryption: subtract 1
+On its face, the chance of guessing a correct 5-digit key appears to be one in 100,000 (all the numbers from 00000 to 99999). However, the chances are somewhat better than that:
+
 * There are 14,760 cases where guessing a key would result in being equivalent to __one__ other: subtract 14,760
 * There are 1,022 cases where guessing a key would result in being equivalent to __two__ other keys: subtract 2,044 (1,022 * 2)
 * There is 1 case where guessing a key would result in being equivalent to __three__ other keys: subtract 3
 
-* 100,000 - 1 - 14,760 - 2,044 - 3 = 83,192
+* 100,000 - 14,760 - 2,044 - 3 = 83,193
 
-The chance of guessing a correct key is one in 83,192.
+Accounting for this, the chance of guessing a correct key for a given encryption becomes one in 83,193.
