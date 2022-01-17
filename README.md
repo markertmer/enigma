@@ -3,7 +3,7 @@ This was built based on the requirements of the [Enigma](https://backend.turing.
 It was completed by Mark Ertmer (2111 BE) in January 2022 as the Final Project for Mod 1.
 
 ###About this Application
-This application uses an algorithm to encrypt and decrypt message text with the use of a 5-digit `key` and 6-digit numeric `date`. The application is run from the command line, where the user can designate an input file to encrypt/decrypt and an output file to write the resulting encryption/decryption.
+This application uses an algorithm to encrypt and decrypt message text with the use of a 5-digit, randomly-generated `key` and the 6-digit numeric `date` of encryption in DDMMYY format. The application is run from the command line, where the user can designate an input file to encrypt/decrypt and an output file to write the resulting encryption/decryption.
 
 ##Getting Started
 1. Fork and Clone this repo to your machine.
@@ -90,4 +90,60 @@ It is possible that an intercepted message could be decoded without a key, provi
 
 Note: Uppercase letters are automatically downcased before encryption, so any decrypted message will not include capitalization.
 
-Note: If the message text includes any symbols that are not included in the character set, such as numbers or punctuation, those symbols are essentially ignored and passed to the output encryption (or decryption, as the case may be) unchanged. 
+Note: If the message text includes any symbols that are not included in the character set, such as numbers or punctuation, those symbols are essentially ignored and passed to the output encryption (or decryption, as the case may be) unchanged.
+
+##Input Handling
+To avoid crashing, the program includes contingencies for the following improper input scenarios when running `encrypt.rb`, `decrypt.rb`, and `crack.rb`:
+* invalid or missing source file and path
+* invalid filepath or missing directory for output file
+* wrong number of arguments
+* invalid key syntax
+* invalid date syntax
+
+If any of these conditions apply, the program ends after outputting a message to help the user enter a valid command:
+```
+```
+
+##Exploration: Multiple Keys
+While testing my `crack` methods, there were two isolated times when a reliable method failed. The reason was that the `key` found did not match the key used for the original encryption.  
+
+I realized that it is possible for more than one key to result in the same effective `A`, `B`, `C`, and `D` shifts, because numbers larger than 27 loop back around. So in other words, a shift of 30 is equivalent to a shift of 3 (because 30 = 27 + 3), or a shift of 71 is equivalent to a shift of 17 (because 71 = 27 + 27 + 17).  
+
+I was curious to see how many such sets of equivalent keys existed in all the possible keys, so I wrote a short script to find out:
+```ruby
+all_keys = ("00000".."99999").to_a
+shifts = {}
+
+all_keys.each do |key|
+  shift_keys = {A: key[0..1].to_i, B: key[1..2].to_i, C: key[2..3].to_i, D: key[3..4].to_i}
+  shift_keys.each do |letter, shiftkey|
+    until shiftkey < 27 do
+      shiftkey -= 27
+    end
+    shift_keys[letter] = shiftkey
+  end
+  shifts[shift_keys] ||= []
+  shifts[shift_keys] << key
+end
+```
+###RESULTS
+* There are 14,760 __pairs of keys__ that can decrypt the same message.
+* There are 1,022 __sets of three__ keys that can decrypt the same message.
+* There is __one set of __four keys__ that can decrypt the same message. They are:
+  * 09090
+  * 90909
+  * 36363
+  * 63636
+
+  (Each of these keys results in an `A`, `B`, `C`, and `D` shift of 9)
+
+###IMPLICATIONS FOR PROBABILITY
+On the face, the chance of guessing a correct 5-digit key appears to be one in 100,000 (all the numbers from 00000 to 99999). However, the chances are somewhat better than that:
+* The key 00000 results in no shifts, and therefore no encryption: subtract 1
+* There are 14,760 cases where guessing a key would result in being equivalent to __one__ other: subtract 14,760
+* There are 1,022 cases where guessing a key would result in being equivalent to __two__ other keys: subtract 2,044 (1,022 * 2)
+* There is 1 case where guessing a key would result in being equivalent to __three__ other keys: subtract 3
+
+* 100,000 - 1 - 14,760 - 2,044 - 3 = 83,192
+
+The chance of guessing a correct key is one in 83,192.
