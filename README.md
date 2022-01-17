@@ -2,7 +2,17 @@
 This was built based on the requirements of the [Enigma](https://backend.turing.edu/module1/projects/enigma/index) project from [Turing School of Software and Design](https://turing.edu/).
 It was completed by Mark Ertmer (2111 BE) in January 2022 as the Final Project for Mod 1.
 
-###About this Application
+###Table of Contents
+* [About](#about-this-application)
+* [Getting Started](#getting-started)
+* [Encrypting Messages](#encrypting-messages)
+* [Decrypting Messages](#decrypting-messages)
+* [Cracking Encrypted Messages](#cracking-encrypted-messages)
+* [Encryption Algorithm](#encryption-algorithm)
+* [Input Handling](#input-handling)
+* [Exploration: Finding Equivalent Keys](#exploration)
+
+##About this Application
 This application uses an algorithm to encrypt and decrypt message text with the use of a 5-digit, randomly-generated `key` and the 6-digit numeric `date` of encryption in DDMMYY format. The application is run from the command line, where the user can designate an input file to encrypt/decrypt and an output file to write the resulting encryption/decryption.
 
 ##Getting Started
@@ -104,8 +114,9 @@ If any of these conditions apply, the program ends after outputting a message to
 ```
 ```
 
-##Exploration: Multiple Keys
-While testing my `crack` methods, there were two isolated times when a reliable method failed. The reason was that the `key` found did not match the key used for the original encryption.  
+##Exploration
+###Finding Equivalent Keys
+While testing my `crack` methods, there were two isolated times when a reliable method failed. The reason was that the `key` found did not match the key used for the original encryption, although it was able to accurately decrypt the message.
 
 I realized that it is possible for more than one key to result in the same effective `A`, `B`, `C`, and `D` shifts, because numbers larger than 27 loop back around. So in other words, a shift of 30 is equivalent to a shift of 3 (because 30 = 27 + 3), or a shift of 71 is equivalent to a shift of 17 (because 71 = 27 + 27 + 17).  
 
