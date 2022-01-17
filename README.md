@@ -86,7 +86,8 @@ It is possible that an intercepted message could be decoded without a key, provi
 
 ## Encryption Algorithm
 1. The algorithm makes use of a 27-character set which includes all the lowercase letters in the English alphabet plus a space. The program stores this information as an array to allow easy access to each character and its index:
-   ```@characters = ("a".."z").to_a << " "
+   ```
+   @characters = ("a".."z").to_a << " "
    ```
 2. The algorithm shifts each character __n__ number of places through the array. For example, an "a" shifted 3 places becomes a "d". It rolls back from the end of the array, so "z" with a shift of 2 becomes "a" (remember the set ends with a space).
 3. As the program moves through the message string, different shifts are applied. There is an `A` shift, a `B` shift, a `C` shift, and a `D` shift, which are rotated sequentially (the first character uses the A shift, the second is B, etc.).
