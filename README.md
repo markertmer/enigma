@@ -157,7 +157,7 @@ end
 ### RESULTS
 * There are 14,760 __pairs of keys__ that can decrypt the same message.
 * There are 1,022 __sets of three__ keys that can decrypt the same message.
-* There is __one set of __four keys__ that can decrypt the same message. They are:
+* There is __one__ set of __four keys__ that can decrypt the same message. They are:
   * 09090
   * 90909
   * 36363
