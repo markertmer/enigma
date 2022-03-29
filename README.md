@@ -2,6 +2,8 @@
 This encryption program was built based on the requirements of the [Enigma](https://backend.turing.edu/module1/projects/enigma/index) project from [Turing School of Software and Design](https://turing.edu/).
 It was submitted by Mark Ertmer (2111 BE) in January 2022 as the Final Project for Mod 1.
 
+An interactive web version of this app can be found here: https://enigma-encryption-app.herokuapp.com/
+
 ### Table of Contents
 * [About](#about-this-application)
 * [Getting Started](#getting-started)
